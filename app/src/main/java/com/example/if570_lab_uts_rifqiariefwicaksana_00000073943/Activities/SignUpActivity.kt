@@ -1,5 +1,6 @@
 package com.example.if570_lab_uts_rifqiariefwicaksana_00000073943.Activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,33 +11,56 @@ import com.example.if570_lab_uts_rifqiariefwicaksana_00000073943.R
 
 class SignUpActivity : AppCompatActivity() {
 
-    private lateinit var editTextName: EditText
-    private lateinit var editTextEmail: EditText
-    private lateinit var editTextPassword: EditText
-    private lateinit var buttonSignUp: Button
+    companion object {
+        const val MAX_USERS = 2  // Limit to 2 users
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        editTextName = findViewById(R.id.editTextName)
-        editTextEmail = findViewById(R.id.editTextEmail)
-        editTextPassword = findViewById(R.id.editTextPassword)
-        buttonSignUp = findViewById(R.id.buttonSignUp)
+        val editTextEmail = findViewById<EditText>(R.id.editTextEmail)
+        val editTextPassword = findViewById<EditText>(R.id.editTextPassword)
+        val buttonSignUp = findViewById<Button>(R.id.buttonSignUp)
 
-        buttonSignUp.setOnClickListener { registerUser() }
+        // Access SharedPreferences
+        val sharedPrefs = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        var userCount = sharedPrefs.getInt("userCount", 0)
+
+        // Check if the maximum number of users has been reached
+        if (userCount >= MAX_USERS) {
+            Toast.makeText(this, "Maximum users reached. Cannot create more accounts.", Toast.LENGTH_LONG).show()
+            navigateToLogin()  // Redirect to LoginActivity
+            finish()
+            return
+        }
+
+        buttonSignUp.setOnClickListener {
+            val email = editTextEmail.text.toString().trim()
+            val password = editTextPassword.text.toString().trim()
+
+            // Validate inputs
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Store new user credentials dynamically
+            sharedPrefs.edit().apply {
+                putString("user_${userCount}_email", email)
+                putString("user_${userCount}_password", password)
+                putInt("userCount", ++userCount)  // Increment user count
+                apply()
+            }
+
+            Toast.makeText(this, "Sign up successful", Toast.LENGTH_SHORT).show()
+            navigateToLogin()
+        }
     }
 
-    private fun registerUser() {
-        val name = editTextName.text.toString().trim()
-        val email = editTextEmail.text.toString().trim()
-        val password = editTextPassword.text.toString().trim()
-
-        if (email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty()) {
-            Toast.makeText(this, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, LoginActivity::class.java))
-        } else {
-            Toast.makeText(this, "Semua field harus diisi", Toast.LENGTH_SHORT).show()
-        }
+    private fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

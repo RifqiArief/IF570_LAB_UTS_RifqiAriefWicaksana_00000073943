@@ -4,25 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp">
-
-    <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nama" />
-
-    <EditText
-        android:id="@+id/editTextNim"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="NIM" />
+    android:padding="16dp">
 
     <Button
-        android:id="@+id/buttonSaveProfile"
+        android:id="@+id/buttonAbsen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Simpan Profil"
+        android:text="Absen" />
+
+    <Button
+        android:id="@+id/buttonHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lihat Riwayat"
         android:layout_marginTop="16dp" />
 </LinearLayout>

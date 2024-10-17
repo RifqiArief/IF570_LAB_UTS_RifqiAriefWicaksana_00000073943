@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "213750253802",
+    "project_id": "if570-l-uts-rifqiarief",
+    "storage_bucket": "if570-l-uts-rifqiarief.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213750253802:android:fb75232da6e8c9dbc2ef93",
+        "android_client_info": {
+          "package_name": "com.example.IF570_LAB_UTS_RifqiAriefWicaksana_00000073943"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0EgDYCxX_bAUuy-RuH6eyTTSgyg-tZwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
